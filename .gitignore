@@ -1,0 +1,26 @@
+*.class
+*.log
+
+target
+project/project
+project/target
+.cache
+.classpath
+.project
+.settings
+bin
+.bsp
+
+# VS Code & Metals
+.bloop
+.metals
+.vscode
+metals.sbt
+
+# Idea
+.idea/
+*.iml
+*.ipr
+
+# Mac
+.DS_Store
