@@ -21,7 +21,7 @@ versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
 
 // setting up sbt 1 and 2 cross-build
 // https://www.scala-sbt.org/2.x/docs/en/changes/migrating-from-sbt-1.x.html#cross-building-sbt-plugin-with-sbt-1x
-crossScalaVersions += "3.7.3" // version used by 2.0.0-RC6
+crossScalaVersions += "3.7.3" // version used by SBT 2.0.0-RC6
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
     // set minimal supported sbt 1 version
