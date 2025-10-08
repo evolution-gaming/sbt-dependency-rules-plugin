@@ -34,12 +34,9 @@ object DependencyRulesPlugin extends AutoPlugin {
 
   import autoImport.*
 
-  override lazy val buildSettings: Seq[Def.Setting[?]] = Seq(
-    /*
-    Added to buildSettings because if put to projectSettings, overriding it using `ThisBuild / dependencyRules`
-    doesn't work.
-    Not sure if there is a better way to do it.
-     */
+  override lazy val globalSettings: Seq[Def.Setting[?]] = Seq(
+    // Provide default values in globalSettings:
+    // https://www.scala-sbt.org/1.x/docs/Plugins-Best-Practices.html#Provide+default+values+in
     dependencyRules := Vector.empty,
   )
 
