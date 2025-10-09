@@ -36,15 +36,15 @@ final class DependencyRule(
   /**
    * Creates a rule copy with modified [[DependencyRule.name]]
    */
-  def withName(newName: String): DependencyRule = {
-    copy(name = newName)
+  def withName(name: String): DependencyRule = {
+    copy(name = name)
   }
 
   /**
    * Creates a rule copy with modified [[DependencyRule.scope]]
    */
-  def withScope(newScope: Set[Configuration]): DependencyRule = {
-    copy(scope = newScope)
+  def withScope(scope: Set[Configuration]): DependencyRule = {
+    copy(scope = scope)
   }
 
   /**
@@ -64,8 +64,8 @@ final class DependencyRule(
   /**
    * Creates a rule copy with modified [[DependencyRule.logic]]
    */
-  def withLogic(newLogic: DependencyRuleLogic): DependencyRule = {
-    copy(logic = newLogic)
+  def withLogic(logic: DependencyRuleLogic): DependencyRule = {
+    copy(logic = logic)
   }
 
   /**
