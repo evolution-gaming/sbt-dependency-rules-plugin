@@ -31,10 +31,10 @@ TaskKey[Unit]("checkTaskLogs") := {
   }
 
   if (!lastLogLines.contains(projectConfigRuleFailureLine)) {
-    sys.error("missing project config rule failure line")
+    sys.error(s"missing project config rule failure line:\n$projectConfigRuleFailureLine")
   }
 
   if (!lastLogLines.contains(finalTaskFailureLine)) {
-    sys.error("missing final task failure line")
+    sys.error(s"missing final task failure line:\n$finalTaskFailureLine")
   }
 }
