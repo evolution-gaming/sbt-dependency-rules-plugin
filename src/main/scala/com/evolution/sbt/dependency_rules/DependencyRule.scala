@@ -6,7 +6,7 @@ import sbt.*
  * Dependency rule - verified using the
  * [[DependencyRulesPlugin.autoImport.dependencyRulesCheck]] task.
  *
- * Check the companion object for custom rule creation helpers!
+ * See the companion object for custom rule creation helpers!
  *
  * For an existing rule, parameters can be adjusted using `withX` and `modifyX` methods:
  * {{{
