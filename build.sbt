@@ -73,7 +73,7 @@ enablePlugins(SbtPlugin)
 scriptedLaunchOpts ++= Seq(
   "-Xmx1024M",
   "-Dplugin.version=" + version.value,
-  "-Dsbt.color=never", // TODO: WIP
+  "-Dsbt.color=never", // to get reliable test results on sbt log
 )
 
 // TODO: #4 set up release publishing
