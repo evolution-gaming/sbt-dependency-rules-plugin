@@ -6,7 +6,7 @@ import sbt.ModuleID
  * Internal utils for working with [[sbt.ModuleID]]
  */
 private[dependency_rules] object ModuleUtils {
-  private val ScalaBinVersionRegex = """[0-9][0-9.]*""".r
+  private val ScalaModuleNameRegex = """(.+)_[0-9][0-9.]*""".r
 
   /**
    * Formats [[sbt.ModuleID]] as `organization:name`
@@ -26,15 +26,9 @@ private[dependency_rules] object ModuleUtils {
    * Returns [[sbt.ModuleID]] name, stripping Scala binary version suffix, if it's there
    */
   def nameWithoutScalaBinVersion(moduleId: ModuleID): String = {
-    val name = moduleId.name
-    val tokens = moduleId.name.split('_')
-
-    if (tokens.length == 1) {
-      name
-    } else if (!ScalaBinVersionRegex.pattern.matcher(tokens.last).matches()) {
-      name
-    } else {
-      tokens.dropRight(1).mkString("_")
+    moduleId.name match {
+      case ScalaModuleNameRegex(baseName) => baseName
+      case nonScalaModuleName => nonScalaModuleName
     }
   }
 }
