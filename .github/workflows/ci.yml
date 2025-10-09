@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  ci-build:
+  build:
 
     runs-on: ubuntu-latest
 
