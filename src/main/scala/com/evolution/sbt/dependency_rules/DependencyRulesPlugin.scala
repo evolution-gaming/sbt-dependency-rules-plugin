@@ -81,10 +81,11 @@ object DependencyRulesPlugin extends AutoPlugin {
   ): Vector[(Configuration, Vector[DependencyRule])] = {
     val resultBuilder = mutable.HashMap.empty[Configuration, Vector[DependencyRule]]
 
-    rules.foreach { rule =>
-      rule.scope.foreach { config =>
-        resultBuilder.put(config, resultBuilder.getOrElse(config, Vector.empty) :+ rule)
-      }
+    for {
+      rule <- rules
+      config <- rule.scope
+    } {
+      resultBuilder.put(config, resultBuilder.getOrElse(config, Vector.empty) :+ rule)
     }
 
     // this way `compile` always comes before `test`
