@@ -8,7 +8,7 @@ import scala.collection.immutable
 /**
  * [[DependencyRule]] classpath verification logic
  *
- * Check the companion object for predefined verifiers and use them as examples when
+ * See the companion object for predefined verifiers and use them as examples when
  * writing a custom one.
  */
 abstract class DependencyRuleLogic {
