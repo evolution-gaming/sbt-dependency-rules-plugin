@@ -98,7 +98,7 @@ object DependencyRulesPlugin extends AutoPlugin {
    *
    * Usage:
    *   - use [[add]] to register violations
-   *   - call [[finalize]] in the end - it logs an aggregated list of violations and
+   *   - call [[finalize]] at the end - it logs an aggregated list of violations and
    *     throws [[DependencyRulesViolated]] if there are any
    */
   private final class ViolationReporter(project: ResolvedProject) {
