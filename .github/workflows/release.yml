@@ -1,0 +1,51 @@
+name: release
+
+on:
+  push:
+    tags: [ "v*" ]
+
+# run only one release action at a time for the repo, wait for the previous to finish before running another one
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # Fetch all history for all branches and tags - just in case it's all necessary for ci-release.
+          # Tags are needed for versionPolicyCheck binary and source compat checks.
+          fetch-depth: 0
+      - uses: coursier/cache-action@v6
+      # SBT 1 base JDK version is 1.8
+      - uses: actions/setup-java@v5
+        with:
+          java-version: 8
+          distribution: temurin
+          cache: sbt
+      - uses: sbt/setup-sbt@v1
+      # sbt ci-release doesn't verify the build, need to do it explicitly
+      - name: sbt build
+        run: sbt clean buildFull
+      - run: sbt ci-release
+        env:
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASS }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USER }}
+
+      - name: delete release tag if failed
+        if: failure()
+        run: git push --delete origin ${{ github.ref_name }}
+
+      - name: publish release notes
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="v${tag#v}" \
+              --generate-notes
