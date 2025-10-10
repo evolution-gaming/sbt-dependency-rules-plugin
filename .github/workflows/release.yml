@@ -4,6 +4,10 @@ on:
   push:
     tags: [ "v*" ]
 
+# run only one release action at a time for the repo, wait for the previous to finish before running another one
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -30,3 +34,18 @@ jobs:
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASS }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USER }}
+
+      - name: delete release tag if failed
+        if: failure()
+        run: git push --delete origin ${{ github.ref_name }}
+
+      - name: publish release notes
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="v${tag#v}" \
+              --generate-notes
