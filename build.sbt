@@ -9,6 +9,16 @@ licenses := Seq(("MIT", url("https://opensource.org/licenses/MIT")))
 organizationName := "Evolution"
 organizationHomepage := Some(url("https://evolution.com"))
 
+// Maven Central requires <developers> in published pom.xml files
+developers := List(
+  Developer(
+    id = "migesok",
+    name = "Mikhail Sokolov",
+    email = "mikhail.g.sokolov@gmail.com",
+    url = url("https://github.com/migesok"),
+  ),
+)
+
 scmInfo := Some(ScmInfo(
   browseUrl = url("https://github.com/evolution-gaming/sbt-dependency-rules-plugin"),
   connection = "git@github.com:evolution-gaming/sbt-dependency-rules-plugin.git",
