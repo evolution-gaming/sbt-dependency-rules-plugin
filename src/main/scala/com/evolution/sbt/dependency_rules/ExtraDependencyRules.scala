@@ -4,7 +4,6 @@ import com.evolution.sbt.dependency_rules.ModuleUtils.*
 import sbt.*
 
 //TODO: #5 add more built-in rules: Akka-HTTP, Pekko-HTTP, loggers, etc.
-//TODO: #2 mention in the documentation
 /**
  * Predefined useful dependency rules
  */
