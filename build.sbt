@@ -31,8 +31,7 @@ scmInfo := Some(ScmInfo(
 // WARNING: BinaryCompatible is used instead of BinaryAndSourceCompatible because BinaryAndSourceCompatible fails
 // on new methods added to objects, which doesn't really break neither source, nor binary compatibility.
 // So the source compatibility should be guaranteed manually.
-// TODO: change to BinaryCompatible after 1.0.0 release
-versionPolicyIntention := Compatibility.None
+versionPolicyIntention := Compatibility.BinaryCompatible
 
 // setting up sbt 1 and 2 cross-build
 // https://www.scala-sbt.org/2.x/docs/en/changes/migrating-from-sbt-1.x.html#cross-building-sbt-plugin-with-sbt-1x
