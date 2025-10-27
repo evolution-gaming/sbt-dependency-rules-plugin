@@ -172,6 +172,13 @@ A full build with `scripted` tests can be run with:
 sbt buildFull
 ```
 
+### Compatibility
+
+**DO NOT BREAK BINARY AND SOURCE COMPATIBILITY!**
+
+Binary compatibility is checked on every build automatically, but for the source compatibility you need to watch for it
+yourself.
+
 ### How to Make a Release
 
 - Being on the up-to-date main branch, create a release tag:
@@ -215,8 +222,14 @@ The `ExtraDependencyRules` object provides the following predefined rules:
 
 * `ExtraDependencyRules.Akka.ModulesHaveSameVersion`: Ensures all Akka modules have the same version.
 * `ExtraDependencyRules.Akka.Banned`: Bans all Akka modules.
+* `ExtraDependencyRules.AkkaHttp.ModulesHaveSameVersion`: Ensures all Akka HTTP modules have the same version.
+* `ExtraDependencyRules.AkkaManagement.ModulesHaveSameVersion`: Ensures all Akka Management modules have the same
+  version.
 * `ExtraDependencyRules.Pekko.ModulesHaveSameVersion`: Ensures all Pekko modules have the same version.
 * `ExtraDependencyRules.Pekko.Banned`: Bans all Pekko modules.
+* `ExtraDependencyRules.PekkoHttp.ModulesHaveSameVersion`: Ensures all Pekko HTTP modules have the same version.
+* `ExtraDependencyRules.PekkoManagement.ModulesHaveSameVersion`: Ensures all Pekko Management modules have the same
+  version.
 
 ### Creating Custom Rules
 

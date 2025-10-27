@@ -27,7 +27,12 @@ scmInfo := Some(ScmInfo(
 // DO NOT CHANGE THIS SETTING UNLESS YOU FULLY UNDERSTAND THE CONSEQUENCES!
 // For clients to be able to reuse rules in derived plugins, full binary and source compatibility between
 // releases should be guaranteed.
-versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
+//
+// WARNING: BinaryCompatible is used instead of BinaryAndSourceCompatible because BinaryAndSourceCompatible fails
+// on new methods added to objects, which doesn't really break neither source, nor binary compatibility.
+// So the source compatibility should be guaranteed manually.
+// TODO: change to BinaryCompatible after 1.0.0 release
+versionPolicyIntention := Compatibility.None
 
 // setting up sbt 1 and 2 cross-build
 // https://www.scala-sbt.org/2.x/docs/en/changes/migrating-from-sbt-1.x.html#cross-building-sbt-plugin-with-sbt-1x
