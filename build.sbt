@@ -45,6 +45,11 @@ pluginCrossBuild / sbtVersion := {
   }
 }
 
+dependencyOverrides ++= Seq(
+  "org.apache.logging.log4j" % "log4j-api" % "2.26.1",
+  "org.apache.logging.log4j" % "log4j-core" % "2.26.1",
+)
+
 // scalac and scaladoc options
 autoAPIMappings := true
 scalacOptions ++= Seq(
