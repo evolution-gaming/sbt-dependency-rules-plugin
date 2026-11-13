@@ -48,7 +48,7 @@ pluginCrossBuild / sbtVersion := {
 // scalac and scaladoc options
 autoAPIMappings := true
 scalacOptions ++= Seq(
-  "-release:8", // increase the version here if sbt 2 changes min JDK reqs
+  "-release:17", // sbt 2 requires JDK 17+
   "-deprecation",
 )
 scalacOptions ++= crossSettings(
