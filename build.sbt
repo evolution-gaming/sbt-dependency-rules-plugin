@@ -76,7 +76,7 @@ scalacOptions ++= crossSettings(
 // migesok: tried several test frameworks, but only munit worked here:
 // - scalatest with AnyFreeSpec gave weird compilation errors on valid test code
 // - utest 0.9.1 didn't work on Java 8, only 11+, but Java 8 is required for sbt 1
-libraryDependencies += "org.scalameta" %% "munit" % "1.2.0" % Test
+libraryDependencies += "org.scalameta" %% "munit" % "1.3.6" % Test
 // disable parallel test execution and bufferization to have nice linear stdout:
 // https://scalameta.org/munit/docs/tests.html#run-tests-in-parallel
 Test / parallelExecution := false
