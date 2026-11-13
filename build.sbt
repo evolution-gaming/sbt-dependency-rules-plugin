@@ -43,6 +43,26 @@ pluginCrossBuild / sbtVersion := {
   }
 }
 
+// Fixing Dependabot security alerts for transitive dependencies of sbt (provided) and scala3-repl (scala-repl-tool).
+// The plugin doesn't publish these dependencies, the overrides only silence the alerts from the submitted dependency graph.
+// All the modules of a library are overridden to the same version to keep them consistent.
+// Remove the overrides once the base sbt and Scala versions bring in the fixed versions.
+dependencyOverrides ++= {
+  val jlineVersion = "3.30.17" // GHSA-r2xf-8xr9-62gw, GHSA-ph9c-7hw9-vhhw, GHSA-5q95-hrpc-m3w3
+  val log4jVersion = "2.25.5" // GHSA-qv9r-c865-cp47
+  Seq(
+    "org.jline" % "jline-builtins" % jlineVersion,
+    "org.jline" % "jline-native" % jlineVersion,
+    "org.jline" % "jline-reader" % jlineVersion,
+    "org.jline" % "jline-style" % jlineVersion,
+    "org.jline" % "jline-terminal" % jlineVersion,
+    "org.jline" % "jline-terminal-jni" % jlineVersion,
+    "org.apache.logging.log4j" % "log4j-api" % log4jVersion,
+    "org.apache.logging.log4j" % "log4j-core" % log4jVersion,
+    "org.apache.logging.log4j" % "log4j-slf4j-impl" % log4jVersion,
+  )
+}
+
 // scalac and scaladoc options
 autoAPIMappings := true
 scalacOptions := {
