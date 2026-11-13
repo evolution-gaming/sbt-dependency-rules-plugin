@@ -30,12 +30,12 @@ jobs:
           persist-credentials: false
       # No dependency caches here: caches written by main branch CI runs are restorable by tag runs,
       # so anything that gets to run in CI could plant code into the job holding the publishing secrets.
-      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           java-version-file: .java-version
           distribution: temurin
       # setup-sbt has no option to disable restoring the sbt runner itself from the cache
-      - uses: sbt/setup-sbt@b113b960ba361e87e08ce02a390d51871b7ee459 # v1.5.13
+      - uses: sbt/setup-sbt@67d461eba2c4753196c230e02da850757ba4775e # v1.5.14
         with:
           disk-cache: false
       # sbt ci-release doesn't verify the build, need to do it explicitly
