@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # keeps the commit-pinned actions in the workflows up to date, updating the version comments too
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    # give the ecosystem a week to catch a compromised release before it gets proposed here
+    cooldown:
+      default-days: 7
+    # one PR for all the actions instead of one per action
+    groups:
+      github-actions:
+        patterns:
+          - "*"
