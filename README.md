@@ -9,8 +9,8 @@ SBT version support:
 
 | Supported major SBT version | Built against concrete SBT Version | Build JDK version |
 |-----------------------------|------------------------------------|-------------------|
-| 1                           | 1.4.5                              | 17                |
-| 2                           | 2.0.0-RC6                          | 17                |
+| 1                           | 1.2.15                             | 17                |
+| 2                           | 2.0.12                             | 17                |
 
 If your SBT version is earlier than the build SBT version, the plugin might still work, but the support is not
 guaranteed.

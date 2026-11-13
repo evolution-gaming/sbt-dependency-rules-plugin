@@ -35,42 +35,51 @@ versionPolicyIntention := Compatibility.BinaryCompatible
 
 // setting up sbt 1 and 2 cross-build
 // https://www.scala-sbt.org/2.x/docs/en/changes/migrating-from-sbt-1.x.html#cross-building-sbt-plugin-with-sbt-1x
-crossScalaVersions += "3.7.3" // version used by SBT 2.0.0-RC6
+crossScalaVersions += "3.8.4" // version used by SBT 2.0.12
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
-    // set minimal supported sbt 1 version
-    // pre 1.4.5 sbt doesn't work on M1 macs: https://github.com/sbt/sbt/issues/6162
-    case "2.12" => "1.4.5"
-    case "3" => "2.0.0-RC6"
+    case "2.12" => "1.12.15"
+    case "3" => "2.0.12"
   }
 }
 
 // scalac and scaladoc options
 autoAPIMappings := true
+scalacOptions := {
+  val curOptions = scalacOptions.value
+
+  scalaBinaryVersion.value match {
+    case "2.12" =>
+      // options for 2.12 come mostly from com.evolution:sbt-scalac-opts-plugin
+      curOptions ++ Seq(
+        "-Xsource:3",
+      )
+
+    case "3" =>
+      // Discarding scalacOptions coming from com.evolution:sbt-scalac-opts-plugin,
+      // because it adds an option which fails compilation on 3.8.x:
+      //
+      //  [warn] Option -Xfatal-warnings is a deprecated alias: use -Werror instead
+      //  [error] No warnings can be incurred under -Werror
+      //  [warn] one warning found
+      //  [error] one error found
+      Seq(
+        "-Xkind-projector:underscores",
+
+        // disable new brace-less syntax:
+        // https://alexn.org/blog/2022/10/24/scala-3-optional-braces/
+        "-no-indent",
+
+        // improve error messages:
+        "-explain",
+        "-explain-types",
+      )
+  }
+}
+// common options
 scalacOptions ++= Seq(
   "-release:17", // sbt 2 requires JDK 17+
   "-deprecation",
-)
-scalacOptions ++= crossSettings(
-  scalaVersion = scalaVersion.value,
-  if2 = Seq(
-    "-Xsource:3",
-  ),
-  // Good compiler options for Scala 2.12 are coming from com.evolution:sbt-scalac-opts-plugin:0.0.9,
-  // but its support for Scala 3 is limited, especially what concerns linting options.
-  //
-  // If Scala 3 is made the primary target, good linting scalac options for it should be added first.
-  if3 = Seq(
-    "-Xkind-projector:underscores",
-
-    // disable new brace-less syntax:
-    // https://alexn.org/blog/2022/10/24/scala-3-optional-braces/
-    "-no-indent",
-
-    // improve error messages:
-    "-explain",
-    "-explain-types",
-  ),
 )
 
 // migesok: tried several test frameworks, but only munit worked here:
